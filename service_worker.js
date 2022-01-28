@@ -4,6 +4,8 @@ let urlsToCache = [
   '/contact-reminders/localforage.min.js',
   ];
 
+self.importScripts('/contact-reminders/localforage.min.js');
+
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)

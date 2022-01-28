@@ -134,11 +134,24 @@
             }
         </script>
         <style>
+            p, label, input {
+                padding: 0.5em;
+                margin: 0.5em 0;
+            }
+
+            input[type="number"] {
+                width: 5em;
+            }
+
+            button {
+                padding: 0.5em;
+            }
+
             .late {
-                background-color: red;
+                background-color: #FF4030;
             }
             .fine {
-                background-color: green;
+                background-color: #30FF40;
             }
 
             #addPersonContainer, #editPersonContainer {
@@ -163,7 +176,9 @@
         <div id="addPersonContainer" style="display:none;">
             <form id="addPersonForm">
                 <label for="name">I would like to message </label><input id="name"></input>
+                <br />
                 <label for="frequency"> every </label><input id="frequency" type="number"></input><label> days</label>
+                <br />
                 <button onclick=addFromForm() type="button">Add</button>
             </form>
             <a href="#" onclick="hideAddPersonForm()">cancel</a>
@@ -172,7 +187,9 @@
             <form id="editPersonForm">
                 <input type="hidden" id="editid">
                 <label for="editname">I would like to message </label><input id="editname"></input>
+                <br/>
                 <label for="editfrequency"> every </label><input id="editfrequency" type="number"></input><label> days</label>
+                <br/>
                 <label for="editlast"> last messaged on </label><input id="editlast" type="date"></input>
                 <button onclick="$('#editlast').val(moment().format('YYYY-MM-DD'))" type="button">now</button>
                 <br/>

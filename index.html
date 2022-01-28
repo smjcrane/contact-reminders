@@ -27,7 +27,7 @@
                 });
                 navigator.serviceWorker.getRegistration()
                     .then((reg) => {
-                        await navigator.permissions.query({
+                        navigator.permissions.query({
                             name: 'periodic-background-sync',
                         }).then(status => {
                             if (status.state === 'granted') {

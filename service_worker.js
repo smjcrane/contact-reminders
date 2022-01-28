@@ -23,7 +23,7 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('periodicsync', (event) => {
-    state = JSON.parse(localStorage.getItem("state")) || {people: []};
+    state = JSON.parse(localforage.getItem("state")) || {people: []};
     needToMessage = state.people.filter(person => {
         if (!person.lastMessaged) {
             return true

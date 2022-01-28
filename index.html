@@ -55,10 +55,12 @@
 
             function showAddPersonForm() {
                 $("#addPersonContainer").css("display", "block")
+                $("#darkness").css("display", "block");
             }
 
             function hideAddPersonForm() {
                 $("#addPersonContainer").css("display", "none")
+                $("#darkness").css("display", "none");
             }
 
             function addFromForm(){
@@ -72,10 +74,12 @@
                 $("#editfrequency").val(person.frequency);
                 $("#editlast").val(moment(person.lastMessaged).format("YYYY-MM-DD"));
                 $("#editPersonContainer").css("display", "block")
+                $("#darkness").css("display", "block");
             }
 
             function hideEditPersonForm() {
                 $("#editPersonContainer").css("display", "none")
+                $("#darkness").css("display", "none");
             }
 
             function editFromForm(){
@@ -162,6 +166,17 @@
                 left: 0;
                 background-color: white;
                 padding: 1em;
+                max-width: 400px;
+                margin: auto;
+            }
+
+            #darkness {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                background-color: rgba(40,40,40,0.8);
             }
             </style>
     </head>
@@ -173,6 +188,7 @@
             Add person
         </button>
         <div id="people"></div>
+        <div id="darkness" style="display:none;"></div>
         <div id="addPersonContainer" style="display:none;">
             <form id="addPersonForm">
                 <label for="name">I would like to message </label><input id="name"></input>

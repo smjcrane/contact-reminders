@@ -162,7 +162,7 @@
             <form id="addPersonForm">
                 <label for="name">I would like to message </label><input id="name"></input>
                 <label for="frequency"> every </label><input id="frequency" type="number"></input><label> days</label>
-                <button onclick=addFromForm()>Add</button>
+                <button onclick=addFromForm() type="button">Add</button>
             </form>
             <a href="#" onclick="hideAddPersonForm()">cancel</a>
         </div>
@@ -172,10 +172,10 @@
                 <label for="editname">I would like to message </label><input id="editname"></input>
                 <label for="editfrequency"> every </label><input id="editfrequency" type="number"></input><label> days</label>
                 <label for="editlast"> last messaged on </label><input id="editlast" type="date"></input>
-                <button onclick="$('#editlast').val(moment().format('YYYY-MM-DD'))">now</button>
+                <button onclick="$('#editlast').val(moment().format('YYYY-MM-DD'))" type="button">now</button>
                 <br/>
-                <button onclick=editFromForm()>Save</button>
-                <button onclick=removeFromForm()>Remove</button>
+                <button onclick=editFromForm() type="button">Save</button>
+                <button onclick=removeFromForm() type="button">Remove</button>
             </form>
             <a href="#" onclick="hideEditPersonForm()">cancel</a>
         </div>

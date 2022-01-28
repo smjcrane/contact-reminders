@@ -27,12 +27,13 @@
                 });
                 navigator.serviceWorker.getRegistration()
                     .then((reg) => {
-                        const status = await navigator.permissions.query({
+                        await navigator.permissions.query({
                             name: 'periodic-background-sync',
+                        }).then(status => {
+                            if (status.state === 'granted') {
+                                reg.periodicSync.register("friendremind", {minInterval: 24 * 60 * 60 * 1000})
+                            }
                         });
-                        if (status.state === 'granted') {
-                            reg.periodicSync.register("friendremind", {minInterval: 24 * 60 * 60 * 1000})
-                        }
                     });
 
             }

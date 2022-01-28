@@ -35,6 +35,5 @@ self.addEventListener('periodicsync', async (event) => {
         days = moment().diff( date, 'days');
         return days >= person.frequency;
     })
-    alert("hello")
     notification = new Notification("Message some people");
 })

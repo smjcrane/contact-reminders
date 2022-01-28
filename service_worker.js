@@ -1,6 +1,6 @@
 let CACHE_NAME = 'friend-remind';
 let urlsToCache = [
-  '/index.html',
+  '/contact-reminders/index.html',
   ];
 
 self.addEventListener('install', function(event) {

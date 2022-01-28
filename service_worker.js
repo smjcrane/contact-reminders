@@ -24,6 +24,7 @@ self.addEventListener('fetch', function(event) {
 
 self.addEventListener('periodicsync', async (event) => {
     state = JSON.parse(await localforage.getItem("state")) || {people: []};
+    console.log(state)
     needToMessage = state.people.filter(person => {
         if (!person.lastMessaged) {
             return true
@@ -32,5 +33,6 @@ self.addEventListener('periodicsync', async (event) => {
         days = moment().diff( date, 'days');
         return days >= person.frequency;
     })
+    alert("hello")
     notification = new Notification("Message some people");
 })

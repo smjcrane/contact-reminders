@@ -1,2 +1,152 @@
 <html>
+    <head>
+        <title>
+            Reminders
+        </title>
+        <link rel="manifest" href="/manifest.json">
+        <meta name="theme-color" content="#317EFB">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Remember to reach out to your friends">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+        <script>
+            function addPerson(name, frequency) {
+                person = {
+                    id: Math.random(),
+                    name,
+                    frequency,
+                    lastMessaged: 0
+                }
+                state.people.push(person);
+                displayPerson(person);
+                localStorage.setItem("state", JSON.stringify(state))
+            }
+
+            function showAddPersonForm() {
+                $("#addPersonContainer").css("display", "block")
+            }
+
+            function hideAddPersonForm() {
+                $("#addPersonContainer").css("display", "none")
+            }
+
+            function addFromForm(){
+                addPerson($("#name")[0].value, $("#frequency")[0].value);
+                hideAddPersonForm();
+            }
+
+            function showEditPersonForm(person) {
+                $("#editid").val(person.id);
+                $("#editname").val(person.name);
+                $("#editfrequency").val(person.frequency);
+                $("#editlast").val(moment(person.lastMessaged).format("YYYY-MM-DD"));
+                $("#editPersonContainer").css("display", "block")
+            }
+
+            function hideEditPersonForm() {
+                $("#editPersonContainer").css("display", "none")
+            }
+
+            function editFromForm(){
+                i = state.people.findIndex(p => p.id == $("#editid").val())
+                console.log(i)
+                state.people[i] = {
+                    id: $("#editid").val(),
+                    name: $("#editname").val(),
+                    frequency: $("#editfrequency").val(),
+                    lastMessaged: $("#editlast").val(),
+                }
+                localStorage.setItem("state", JSON.stringify(state))
+                hideEditPersonForm();
+                init();
+            }
+
+            function init() {
+                state = JSON.parse(localStorage.getItem("state")) || {people: []};
+                $("#people").empty();
+                state.people.forEach(displayPerson);
+            }
+
+            function displayPerson(person) {
+                last = "never";
+                days = Infinity;
+                if (person.lastMessaged) {
+                    date = moment(person.lastMessaged)
+                    days = moment().diff( date, 'days');
+                    if (days == 0) {
+                        displayDays = "today"
+                    } else {
+                        displayDays = days + " days ago"
+                    }
+                    last = date.format("DD/MM/YYYY") + " (" + displayDays + ")"
+                }
+                $("<div>")
+                .append(
+                    $("<p>", {
+                        text: person.name + " - last messaged " + last,
+                    }).addClass(days > person.frequency ? "late" : "fine")
+                    .on("click", ()=>showEditPersonForm(person))
+                ).appendTo("#people")
+            }
+
+            function removeFromForm() {
+                name = $("#editname").val()
+                if (confirm("Are you sure you want to remove " + name + "?")) {
+                    hideEditPersonForm()
+                    id = $("#editid").val()
+                    state.people = state.people.filter(p => p.id != id);
+                    localStorage.setItem("state", JSON.stringify(state))
+                    init();
+                }
+            }
+        </script>
+        <style>
+            .late {
+                background-color: red;
+            }
+            .fine {
+                background-color: green;
+            }
+
+            #addPersonContainer, #editPersonContainer {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                background-color: white;
+                padding: 1em;
+            }
+            </style>
+    </head>
+    <body onload="init()">
+        <h1>
+            Remember to reach out to your friends
+        </h1>
+        <button onclick="showAddPersonForm()">
+            Add person
+        </button>
+        <div id="people"></div>
+        <div id="addPersonContainer" style="display:none;">
+            <form id="addPersonForm">
+                <label for="name">I would like to message </label><input id="name"></input>
+                <label for="frequency"> every </label><input id="frequency" type="number"></input><label> days</label>
+                <button onclick=addFromForm()>Add</button>
+            </form>
+            <a href="#" onclick="hideAddPersonForm()">cancel</a>
+        </div>
+        <div id="editPersonContainer" style="display:none;">
+            <form id="editPersonForm">
+                <input type="hidden" id="editid">
+                <label for="editname">I would like to message </label><input id="editname"></input>
+                <label for="editfrequency"> every </label><input id="editfrequency" type="number"></input><label> days</label>
+                <label for="editlast"> last messaged on </label><input id="editlast" type="date"></input>
+                <button onclick="$('#editlast').val(moment().format('YYYY-MM-DD'))">now</button>
+                <br/>
+                <button onclick=editFromForm()>Save</button>
+                <button onclick=removeFromForm()>Remove</button>
+            </form>
+            <a href="#" onclick="hideEditPersonForm()">cancel</a>
+        </div>
+    </body>
 </html>

@@ -35,5 +35,21 @@ self.addEventListener('periodicsync', async (event) => {
         days = moment().diff( date, 'days');
         return days >= person.frequency;
     })
+    options = {
+        body: 'They would love to hear from you!',
+        icon: 'images/small.png',
+        actions: [
+          {action: 'See list', title: 'See who it is'},
+        ]
+      };
     self.registration.showNotification("Message some people");
 })
+
+self.addEventListener('notificationclick', function(e) {
+    var action = e.action;
+  
+    if (action === 'See list') {
+      clients.openWindow('https://smjcrane.github.io/contact-reminders/');
+      notification.close();
+    }
+  });

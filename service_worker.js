@@ -1,6 +1,7 @@
 let CACHE_NAME = 'friend-remind';
 let urlsToCache = [
   '/contact-reminders/index.html',
+  '/contact-reminders/localforage.min.js',
   ];
 
 self.addEventListener('install', function(event) {

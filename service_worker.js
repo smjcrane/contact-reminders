@@ -22,8 +22,8 @@ self.addEventListener('fetch', function(event) {
   );
 });
 
-self.addEventListener('periodicsync', (event) => {
-    state = JSON.parse(localforage.getItem("state")) || {people: []};
+self.addEventListener('periodicsync', async (event) => {
+    state = JSON.parse(await localforage.getItem("state")) || {people: []};
     needToMessage = state.people.filter(person => {
         if (!person.lastMessaged) {
             return true

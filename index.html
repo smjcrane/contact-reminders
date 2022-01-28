@@ -89,8 +89,8 @@
                 init();
             }
 
-            function init() {
-                state = JSON.parse(localforage.getItem("state")) || {people: []};
+            async function init() {
+                state = JSON.parse(await localforage.getItem("state")) || {people: []};
                 $("#people").empty();
                 state.people.forEach(displayPerson);
             }

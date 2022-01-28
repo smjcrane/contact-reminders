@@ -89,7 +89,8 @@
                 }
                 localforage.setItem("state", JSON.stringify(state))
                 hideEditPersonForm();
-                init();
+                $("#people").empty();
+                state.people.forEach(displayPerson);
             }
 
             async function init() {
@@ -127,7 +128,8 @@
                     id = $("#editid").val()
                     state.people = state.people.filter(p => p.id != id);
                     localforage.setItem("state", JSON.stringify(state))
-                    init();
+                    $("#people").empty();
+                    state.people.forEach(displayPerson);
                 }
             }
         </script>

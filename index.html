@@ -17,7 +17,6 @@
                         function(registration) {
                             // Registration was successful
                             console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                            registration.periodicSync.register("friendremind", {minInterval: 24 * 60 * 60 * 1000})
                         }, 
                         function(err) {
                             // registration failed :(
@@ -25,6 +24,11 @@
                         }
                     );
                 });
+                navigator.serviceWorker.getRegistration()
+                    .then((reg) => {
+                        reg.periodicSync.register("friendremind", {minInterval: 24 * 60 * 60 * 1000})
+                    });
+
             }
 
             function addPerson(name, frequency) {

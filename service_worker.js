@@ -2,9 +2,11 @@ let CACHE_NAME = 'friend-remind';
 let urlsToCache = [
   '/contact-reminders/index.html',
   '/contact-reminders/localforage.min.js',
+  '/contact-reminders/moment.min.js',
   ];
 
 self.importScripts('/contact-reminders/localforage.min.js');
+self.importScripts('/contact-reminders/moment.min.js');
 
 self.addEventListener('install', function(event) {
   event.waitUntil(

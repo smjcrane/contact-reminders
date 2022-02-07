@@ -73,7 +73,11 @@
                 $("#editid").val(person.id);
                 $("#editname").val(person.name);
                 $("#editfrequency").val(person.frequency);
-                $("#editlast").val(moment(person.lastMessaged).format("YYYY-MM-DD"));
+                if (person.lastMessaged === 0) {
+                    setLastMessagedToNow()
+                } else {
+                    $("#editlast").val(moment(person.lastMessaged).format("YYYY-MM-DD"));
+                }
                 $("#editPersonContainer").css("display", "block")
                 $("#darkness").css("display", "block");
             }

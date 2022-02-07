@@ -137,6 +137,10 @@
                     state.people.forEach(displayPerson);
                 }
             }
+
+            function setLastMessagedToNow() {
+                $('#editlast').val(moment().format('YYYY-MM-DD'))
+            }
         </script>
         <style>
             p, label, input {
@@ -208,7 +212,7 @@
                 <label for="editfrequency"> every </label><input id="editfrequency" type="number"></input><label> days</label>
                 <br/>
                 <label for="editlast"> last messaged on </label><input id="editlast" type="date"></input>
-                <button onclick="$('#editlast').val(moment().format('YYYY-MM-DD'))" type="button">now</button>
+                <button onclick="setLastMessagedToNow()" type="button">now</button>
                 <br/>
                 <button onclick=editFromForm() type="button">Save</button>
                 <button onclick=removeFromForm() type="button">Remove</button>
